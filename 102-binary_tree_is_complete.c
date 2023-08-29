@@ -27,28 +27,43 @@ int sides_check(const binary_tree_t *tree)
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	static int count = 1, height = 1, check = 1, flag = 1;
-	int j = 0;
+	static int count = 1, check = 1, check1 = 1, flag = 1, z = 1, k = 1;
+	int j = 0, i = 1;
 
 	if (tree == NULL)
 		return (0);
-	if (count > height)
-		height = count;
+	if (check1 == 0 && count > k)
+		flag = 0;
 	j = sides_check(tree);
-	if ((check == 0 && count == (height - 1) && j != 0) || (j == 2))
+
+	if (check1 == 0 && count == k - 2 && j != 3)
 		flag = 0;
-	if (check == 0 && j != 3 &&  count < height - 1)
+
+	if ((check == 0 && count == z && j != 0) || (j == 2))
 		flag = 0;
+	
 	if (flag == 0 && count == 1)
 	{
 		flag = 1;
 		check = 1;
+		check1 = 1;
+		z = 1;
+		k = 1;
 		return (0);
 	}
 	if (flag == 0)
 		return (0);
 	if (j == 1)
+	{
 		check = 0;
+		z = 1;
+	}
+	if (j == 0)
+	{
+		k = count;
+		check1 = 0;
+
+	}
 	if (tree->left != NULL)
 	{
 		count++;
@@ -61,11 +76,14 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 		binary_tree_is_complete(tree->right);
 		count--;
 	}
-	if (count == 1 && flag == 0)
+	if (count == 1)
 	{
+		i = flag;
 		flag = 1;
 		check = 1;
-		return (0);
+		check1 = 1;
+		z = 1;
+		k = 1;
 	}
-	return (1);
+	return (i);
 }
