@@ -98,7 +98,7 @@ int power(int a, int b)
 	return (product);
 }
 /**
- * binary_tree_is_perfec - a function that checks if
+ * binary_tree_is_perfect - a function that checks if
  * a binary tree is perfect
  *
  * @tree: a pointer to the root node of
