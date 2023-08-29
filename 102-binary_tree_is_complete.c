@@ -53,12 +53,12 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	}
 	if (flag == 0)
 		return (0);
-	if (j == 1)
+	if (j == 1 && check == 1)
 	{
 		check = 0;
-		z = 1;
+		z = count;
 	}
-	if (j == 0)
+	if (j == 0 && check1 == 1)
 	{
 		k = count;
 		check1 = 0;
