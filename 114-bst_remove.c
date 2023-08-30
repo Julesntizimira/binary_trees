@@ -16,11 +16,13 @@ bst_t *successor_serch(bst_t *tree)
 
 	while (temp->left != NULL)
 		temp = temp->left;
-	temp->parent->left = NULL;
+	if (temp->parent != tree)
+		temp->parent->left = NULL;
 	temp->parent = tree->parent;
 
 	temp->left = tree->left;
-	temp->right = tree->right;
+	if (tree->right != temp)
+		temp->right = tree->right;
 
 	if (temp->parent != NULL)
 	{
