@@ -77,17 +77,31 @@ bst_t *bst_remove(bst_t *root, int value)
 	}
 	if (tmp == NULL)
 		return (NULL);
-	if ((tmp->left != NULL && tmp->right == NULL) ||
+	if (tmp->left == NULL && tmp->right == NULL)
+	{
+		if (tmp->parent != NULL)
+		{
+			if (tmp->parent->left == tmp)
+				tmp->parent->left = NULL;
+			else
+				tmp->parent->right = NULL; 
+		}
+	}
+	else if ((tmp->left != NULL && tmp->right == NULL) ||
 			(tmp->left == NULL && tmp->right != NULL))
 	{
 		if (tmp->left)
 			curr = tmp->left;
 		else if (tmp->right)
 			curr = tmp->right;
-		if (curr->n > tmp->parent->n)
-			tmp->parent->right = curr;
-		else
-			tmp->parent->left = curr;
+
+		if (tmp->parent != NULL)
+		{
+			if (curr->n > tmp->parent->n)
+				tmp->parent->right = curr;
+			else
+				tmp->parent->left = curr;
+		}
 		curr->parent = tmp->parent;
 	}
 	else if (tmp->left != NULL || tmp->right != NULL)
@@ -96,6 +110,7 @@ bst_t *bst_remove(bst_t *root, int value)
 		if (succ->parent == NULL)
 			root = succ;
 	}
+	tmp->parent = tmp->left = tmp->right = NULL;
 	free(tmp);
 	return (root);
 }
