@@ -19,14 +19,13 @@ bst_t *array_to_bst(int *array, size_t size)
 	size_t i = 0;
 
 
-	if (array == NULL || size <= 0)
+	if (array == NULL)
 		return (NULL);
 
 	while (i < size)
 	{
 		value = array[i];
-		if (bst_insert(&tree, value) == NULL)
-			return (NULL);
+		bst_insert(&tree, value);
 		i++;
 	}
 	return (tree);
