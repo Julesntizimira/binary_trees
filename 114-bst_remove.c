@@ -1,6 +1,4 @@
 # include "binary_trees.h"
-# include <stdio.h>
-
 /**
  * successor_serch - search and replace the
  * node with it  successor
@@ -129,7 +127,9 @@ bst_t *bst_remove(bst_t *root, int value)
 		if (succ->parent == NULL)
 			root = succ;
 	}
-	tmp->parent = tmp->left = tmp->right = NULL;
+	tmp->parent = NULL;
+	tmp->left = NULL;
+	tmp->right = NULL;
 	free(tmp);
 	return (root);
 }
