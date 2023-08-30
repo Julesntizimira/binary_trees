@@ -41,7 +41,39 @@ bst_t *successor_serch(bst_t *tree)
 	return (temp);
 
 }
-
+/**
+ * free_parent_link - cut the links of a node before delete it
+ * @tmp: node
+ */
+void free_parent_link(bst_t *tmp)
+{
+	if (tmp->parent != NULL)
+	{
+		if (tmp->parent->left == tmp)
+			tmp->parent->left = NULL;
+		else
+			tmp->parent->right = NULL;
+	}
+}
+/**
+ * tree_loop - loop over a tree to find a matching node
+ * @tmp: root node
+ * @value: value to match
+ * Return: matching node to remove
+ */
+bst_t *tree_loop(bst_t *tmp, int value)
+{
+	while (tmp != NULL)
+	{
+		if (tmp->n == value)
+			break;
+		if (value < tmp->n)
+			tmp = tmp->left;
+		else if (value > tmp->n)
+			tmp = tmp->right;
+	}
+	return (tmp);
+}
 /**
  * bst_remove - a function that removes a
  * node from a Binary Search Tree
@@ -65,30 +97,11 @@ bst_t *bst_remove(bst_t *root, int value)
 
 	if (root == NULL)
 		return (NULL);
-	tmp = root;
-	while (tmp != NULL)
-	{
-		if (tmp->n == value)
-			break;
-		if (value < tmp->n)
-			tmp = tmp->left;
-		else if (value > tmp->n)
-			tmp = tmp->right;
-	}
+	tmp = tree_loop(root, value);
 	if (tmp == NULL)
 		return (NULL);
 	if (tmp->left == NULL && tmp->right == NULL)
-	{
-		if (tmp->parent != NULL)
-		{
-			if (tmp->parent->left == tmp)
-				tmp->parent->left = NULL;
-			else
-				tmp->parent->right = NULL; 
-		}
-		else
-			root = 	NULL;
-	}
+		free_parent_link(tmp);
 	else if ((tmp->left != NULL && tmp->right == NULL) ||
 			(tmp->left == NULL && tmp->right != NULL))
 	{
@@ -96,17 +109,19 @@ bst_t *bst_remove(bst_t *root, int value)
 			curr = tmp->left;
 		else if (tmp->right)
 			curr = tmp->right;
-
 		if (tmp->parent != NULL)
 		{
 			if (curr->n > tmp->parent->n)
 				tmp->parent->right = curr;
 			else
 				tmp->parent->left = curr;
+			curr->parent = tmp->parent;
 		}
-		curr->parent = tmp->parent;
-		if (curr->parent == NULL)
+		else
+		{
+			curr->parent = NULL;
 			root = curr;
+		}
 	}
 	else if (tmp->left != NULL || tmp->right != NULL)
 	{
@@ -114,7 +129,7 @@ bst_t *bst_remove(bst_t *root, int value)
 		if (succ->parent == NULL)
 			root = succ;
 	}
-	/*tmp->parent = tmp->left = tmp->right = NULL;*/
+	tmp->parent = tmp->left = tmp->right = NULL;
 	free(tmp);
 	return (root);
 }
