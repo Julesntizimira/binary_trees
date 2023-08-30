@@ -41,6 +41,8 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	if ((check == 0 && count == z && j != 0) || (j == 2))
 		flag = 0;
+	if (check1 == 0 && check == 0 && k != z + 1)
+		flag = 0;
 	
 	if (flag == 0 && count == 1)
 	{
