@@ -97,7 +97,7 @@ bst_t *bst_remove(bst_t *root, int value)
 		return (NULL);
 	tmp = tree_loop(root, value);
 	if (tmp == NULL)
-		return (NULL);
+		return (root);
 	if (tmp->left == NULL && tmp->right == NULL)
 		free_parent_link(tmp);
 	else if ((tmp->left != NULL && tmp->right == NULL) ||
