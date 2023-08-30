@@ -38,7 +38,8 @@ int *binary_tree_array(const binary_tree_t *tree)
 	}
 	return (bts_list);
 }
-/*
+/**
+ *
  * binary_tree_is_bst - function that checks if a binary tree
  * is a valid Binary Search Tree
  *
@@ -58,7 +59,7 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 
 	while (bts_arr[i] != 0 && bts_arr[i + 1] != 0)
 	{
-		if (bts_arr[i] > bts_arr[i + 1])
+		if (bts_arr[i] >= bts_arr[i + 1])
 			return (0);
 		i++;
 	}
