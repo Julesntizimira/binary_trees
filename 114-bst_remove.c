@@ -81,7 +81,6 @@ bst_t *bst_remove(bst_t *root, int value)
 		succ = successor_serch(tmp);
 		if (succ->parent == NULL)
 			root = succ;
-		free(tmp);
 	}
 	return root;
 }
