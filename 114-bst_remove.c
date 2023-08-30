@@ -127,9 +127,7 @@ bst_t *bst_remove(bst_t *root, int value)
 		if (succ->parent == NULL)
 			root = succ;
 	}
-	tmp->parent = NULL;
-	tmp->left = NULL;
-	tmp->right = NULL;
+	tmp->parent = tmp->left = tmp->right = NULL;
 	free(tmp);
 	return (root);
 }
