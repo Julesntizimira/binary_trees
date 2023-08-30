@@ -14,7 +14,7 @@ int main(void)
 
     root = binary_tree_node(NULL, 98);
     root->left = binary_tree_node(root, 12);
-    root->right = binary_tree_node(root, 128);
+    root->left->left = binary_tree_node(root->left, 128);
 
     binary_tree_print(root);
     complete = binary_tree_is_complete(root);
