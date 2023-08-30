@@ -86,7 +86,6 @@ bst_t *bst_remove(bst_t *root, int value)
 			else
 				tmp->parent->right = NULL; 
 		}
-		root = NULL;
 	}
 	else if ((tmp->left != NULL && tmp->right == NULL) ||
 			(tmp->left == NULL && tmp->right != NULL))
