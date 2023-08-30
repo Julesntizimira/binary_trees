@@ -21,6 +21,13 @@ bst_t *successor_serch(bst_t *tree)
 		else
 			temp->parent->left = temp;
 	}
+	if (temp->left)
+		temp->left->parent = temp;
+	if (temp->right)
+		temp->right->parent = temp;
+	tree->parent = NULL;
+	tree->left = NULL;
+	tree->right = NULL;
 	return (temp);
 
 }
@@ -60,9 +67,9 @@ bst_t *bst_remove(bst_t *root, int value)
 	}
 	if (tmp == NULL)
 		return (NULL);
-	if (tmp->left == NULL && tmp->right == NULL)
-		free(tmp);
-	else if ((tmp->left != NULL && tmp->right == NULL) || (tmp->left == NULL && tmp->right != NULL))
+	/*if (tmp->left == NULL && tmp->right == NULL)
+		free(tmp);*/
+	if ((tmp->left != NULL && tmp->right == NULL) || (tmp->left == NULL && tmp->right != NULL))
         {
 		if (tmp->left)
 			curr = tmp->left;
@@ -74,7 +81,6 @@ bst_t *bst_remove(bst_t *root, int value)
 		else
 			tmp->parent->left = curr;
 		curr->parent = tmp->parent;
-                free(tmp);
         }
 	else if (tmp->left != NULL || tmp->right != NULL)
 	{
@@ -82,5 +88,6 @@ bst_t *bst_remove(bst_t *root, int value)
 		if (succ->parent == NULL)
 			root = succ;
 	}
+	free(tmp);
 	return root;
 }
