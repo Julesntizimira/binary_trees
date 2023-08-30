@@ -13,13 +13,15 @@ int main(void)
     int complete;
 
     root = binary_tree_node(NULL, 98);
+    root->left = binary_tree_node(root, 12);
+    root->right = binary_tree_node(root, 128);
 
     binary_tree_print(root);
     complete = binary_tree_is_complete(root);
     printf("Is %d complete: %d\n", root->n, complete);
 
 
-    root->left = binary_tree_node(root, 12);
+    /*root->left = binary_tree_node(root, 12);
     root->right = binary_tree_node(root, 128);
     root->left->right = binary_tree_node(root->left, 54);
     root->right->right = binary_tree_node(root, 402);
@@ -44,7 +46,7 @@ int main(void)
     root->left->right->left = binary_tree_node(root->left->right, 23);
     binary_tree_print(root);
     complete = binary_tree_is_complete(root);
-    printf("Is %d complete: %d\n", root->n, complete);
+    printf("Is %d complete: %d\n", root->n, complete);*/
 
     binary_tree_delete(root);
     return (0);
