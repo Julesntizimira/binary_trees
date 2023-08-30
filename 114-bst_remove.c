@@ -103,6 +103,8 @@ bst_t *bst_remove(bst_t *root, int value)
 				tmp->parent->left = curr;
 		}
 		curr->parent = tmp->parent;
+		if (curr->parent == NULL)
+			root = curr;
 	}
 	else if (tmp->left != NULL || tmp->right != NULL)
 	{
