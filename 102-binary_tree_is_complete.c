@@ -32,18 +32,12 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	if (tree == NULL)
 		return (0);
-	if (check1 == 0 && count > k)
-		flag = 0;
 	j = sides_check(tree);
-
-	if (check1 == 0 && count <= k - 2 && j != 3)
+	if ((check1 == 0 && count <= k - 2 && j != 3) ||
+			((check == 0 && count == z && j != 0) || (j == 2)) ||
+			(check1 == 0 && check == 0 && k != z + 1) ||
+			(check1 == 0 && count > k))
 		flag = 0;
-
-	if ((check == 0 && count == z && j != 0) || (j == 2))
-		flag = 0;
-	if (check1 == 0 && check == 0 && k != z + 1)
-		flag = 0;
-	
 	if (flag == 0 && count == 1)
 	{
 		flag = 1;
@@ -64,7 +58,6 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	{
 		k = count;
 		check1 = 0;
-
 	}
 	if (tree->left != NULL)
 	{
