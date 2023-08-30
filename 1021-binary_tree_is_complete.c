@@ -1,5 +1,4 @@
 # include "binary_trees.h"
-# include <stdio.h>
 /**
  * sides_check - check node children both sides
  * @tree: the node to check
@@ -33,17 +32,16 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	if (tree == NULL)
 		return (0);
-
 	if (check1 == 0 && count > k)
 		flag = 0;
 	j = sides_check(tree);
 
-	if (check1 == 0 && count <= k - 2 && j != 3)
+	if (check1 == 0 && count == k - 2 && j != 3)
 		flag = 0;
 
 	if ((check == 0 && count == z && j != 0) || (j == 2))
 		flag = 0;
-
+	
 	if (flag == 0 && count == 1)
 	{
 		flag = 1;
@@ -58,12 +56,11 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	if (j == 1)
 	{
 		check = 0;
-		z = 1;
+		z = count;
 	}
 	if (j == 0 && check1 == 1)
 	{
 		k = count;
-		printf("%d\n", k);
 		check1 = 0;
 
 	}
@@ -76,7 +73,7 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	if (tree->right != NULL)
 	{
 		count++;
-		binary_tree_is_complete(tree->right);	
+		binary_tree_is_complete(tree->right);
 		count--;
 	}
 	if (count == 1)

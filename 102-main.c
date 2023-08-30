@@ -35,7 +35,7 @@ int main(void)
     complete = binary_tree_is_complete(root);
     printf("Is %d complete: %d\n", root->n, complete);
 
-    root->right->left->left = binary_tree_node(root->right->left, 23);
+    root->left->right->left = binary_tree_node(root->left->right, 23);
     binary_tree_print(root);
     complete = binary_tree_is_complete(root);
     printf("Is %d complete: %d\n", root->n, complete);

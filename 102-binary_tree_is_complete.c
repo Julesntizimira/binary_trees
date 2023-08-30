@@ -36,7 +36,7 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 		flag = 0;
 	j = sides_check(tree);
 
-	if (check1 == 0 && count == k - 2 && j != 3)
+	if (check1 == 0 && count <= k - 2 && j != 3)
 		flag = 0;
 
 	if ((check == 0 && count == z && j != 0) || (j == 2))
