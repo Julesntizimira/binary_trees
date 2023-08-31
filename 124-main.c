@@ -31,6 +31,7 @@ int main(void)
     };
     size_t n = sizeof(array) / sizeof(array[0]);
 
+    print_array(array, n);
     tree = sorted_array_to_avl(array, n);
     if (!tree)
         return (1);
