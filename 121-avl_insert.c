@@ -112,37 +112,30 @@ bst_t *tree_balancer(binary_tree_t *tree)
 avl_t *avl_insert(avl_t **tree, int value)
 {
 	int b_factor;
-	avl_t *tmp = NULL, *node = NULL;
+	avl_t *tmp = NULL, *node = NULL, *ptr = NULL;
 
 	tmp = bst_insert(tree, value);
 	if (tmp == NULL)
 		return (NULL);
 	node = tree_balancer(*tree);
+
 	if (node != NULL)
 	{
 		b_factor = binary_tree_balance(node);
-		if (node == *tree)
+		if (b_factor < -1)
 		{
-			if (b_factor < -1)
-				*tree = binary_tree_rotate_left(node);
-			else
-				*tree = binary_tree_rotate_right(node);
+			if (binary_tree_balance(node->right) > 0)
+				binary_tree_rotate_right(node->right);
+			ptr = binary_tree_rotate_left(node);
 		}
 		else
 		{
-			if (b_factor < -1)
-			{
-				if (binary_tree_balance(node->right) > 0)
-					binary_tree_rotate_right(node->right);
-				binary_tree_rotate_left(node);
-			}
-			else
-			{
-				if (binary_tree_balance(node->left) < 0)
-					binary_tree_rotate_left(node->left);
-				binary_tree_rotate_right(node);
-			}
+			if (binary_tree_balance(node->left) < 0)
+				binary_tree_rotate_left(node->left);
+			ptr = binary_tree_rotate_right(node);
 		}
+		if (node == *tree)
+			*tree = ptr;
 	}
 	return (tmp);
 }
