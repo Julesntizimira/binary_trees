@@ -67,3 +67,41 @@ int binary_tree_balance(const binary_tree_t *tree)
 
 	return (b_factor);
 }
+/**
+ * tree_balancer - a function that measures
+ * the balance factor of a binary tree from bottom-top
+ * post order traversal
+ * check if the whole tree is balanced
+ *
+ * @tree: a pointer to the root node of the
+ * tree to measure the balance factor
+ *
+ * Return: the unbalanced node or NULL
+ */
+bst_t *tree_balancer(binary_tree_t *tree)
+{
+	int b_factor;
+	binary_tree_t *tmp = NULL;
+
+	if (tree == NULL)
+		return (NULL);
+	if (tree->left != NULL)
+	{
+		tmp = tree_balancer(tree->left);
+		if (tmp != NULL)
+			return (tmp);
+	}
+	if (tree->right != NULL)
+	{
+		tmp = tree_balancer(tree->right);
+		if (tmp != NULL)
+			return (tmp);
+	}
+	b_factor = binary_tree_balance(tree);
+	if (b_factor > 1 || b_factor < -1)
+	{
+		tmp = tree;
+		return (tmp);
+	}
+	return (NULL);
+}
