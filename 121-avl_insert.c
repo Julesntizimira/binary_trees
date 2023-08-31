@@ -120,18 +120,32 @@ avl_t *avl_insert(avl_t **tree, int value)
 	node = tree_balancer(*tree);
 	if (node != NULL)
 	{
+		printf(" node to rotate is %d\n", node->n);
+		binary_tree_print(node);
+
 		b_factor = binary_tree_balance(node);
-		if (b_factor < -1)
+
+		if (node == *tree)
 		{
-			if (binary_tree_balance(node->right) > 0)
-				binary_tree_rotate_right(node->right);
-			binary_tree_rotate_left(node);
+			if (b_factor < -1)
+				*tree = binary_tree_rotate_left(node);
+			else
+				*tree = binary_tree_rotate_right(node);
 		}
 		else
 		{
-			if (binary_tree_balance(node->left) < 0)
-				binary_tree_rotate_left(node->left);
-			binary_tree_rotate_right(node);
+			if (b_factor < -1)
+			{
+				if (binary_tree_balance(node->right) > 0)
+					binary_tree_rotate_right(node->right);
+				binary_tree_rotate_left(node);
+			}
+			else
+			{
+				if (binary_tree_balance(node->left) < 0)
+					binary_tree_rotate_left(node->left);
+				binary_tree_rotate_right(node);
+			}
 		}
 	}
 	return (tmp);
