@@ -49,10 +49,10 @@ int main(void)
     node = avl_insert(&root, 670);
     printf("\nInserted: %d\n", node->n);
     binary_tree_print(root);
-    node = avl_insert(&root, 800);
+    node = avl_insert(&root, 720);
     printf("\nInserted: %d\n", node->n);
     binary_tree_print(root);
-    /*node = avl_insert(&root, 750);
+    node = avl_insert(&root, 750);
     printf("\nInserted: %d\n", node->n);
     binary_tree_print(root);
     node = avl_insert(&root, 770);
@@ -63,6 +63,6 @@ int main(void)
     binary_tree_print(root);
     node = avl_insert(&root, 830);
     printf("\nInserted: %d\n", node->n);
-    binary_tree_print(root);*/
+    binary_tree_print(root);
     return (0);
 }
