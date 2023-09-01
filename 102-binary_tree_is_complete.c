@@ -1,10 +1,36 @@
 # include "binary_trees.h"
 /**
+ * reset_flags - reset all static variable in
+ * binary_tree_is_complete()
+ *
+ * @flag: input
+ * @check: input
+ * @check1: input
+ * @z: input
+ * @k: input
+ */
+void reset_flags(int *check, int *check1, int *flag, int *z, int *k)
+{
+	*flag = 1;
+	*check = 1;
+	*check1 = 1;
+	*z = 1;
+	*k = 1;
+}
+/**
  * sides_check - check node children both sides
  * @tree: the node to check
+ *
+ * @count: input
+ * @flag: input
+ * @check: input
+ * @check1: input
+ * @z: input
+ * @k: input
  * Return: int
  */
-int sides_check(const binary_tree_t *tree)
+int sides_check(const binary_tree_t *tree, int *count,
+		int *check, int *check1, int *flag, int *z, int *k)
 {
 	int j = 0;
 
@@ -12,6 +38,11 @@ int sides_check(const binary_tree_t *tree)
 		j += 1;
 	if (tree->right != NULL)
 		j += 2;
+	if ((*check1 == 0 && *count <= *k - 2 && j != 3) ||
+			((*check == 0 && *count >= *z && j != 0) || (j == 2)) ||
+			(*check1 == 0 && *check == 0 && *k != *z + 1) ||
+			(*check1 == 0 && *count > *k))
+		*flag = 0;
 	return (j);
 }
 /**
@@ -32,21 +63,9 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	if (tree == NULL)
 		return (0);
-	j = sides_check(tree);
-	if ((check1 == 0 && count <= k - 2 && j != 3) ||
-			((check == 0 && count >= z && j != 0) || (j == 2)) ||
-			(check1 == 0 && check == 0 && k != z + 1) ||
-			(check1 == 0 && count > k))
-		flag = 0;
+	j = sides_check(tree, &count, &check, &check1, &flag, &z, &k);
 	if (flag == 0 && count == 1)
-	{
-		flag = 1;
-		check = 1;
-		check1 = 1;
-		z = 1;
-		k = 1;
-		return (0);
-	}
+		reset_flags(&check, &check1, &flag, &z, &k);
 	if (flag == 0)
 		return (0);
 	if (j == 1 && check == 1)
@@ -74,11 +93,7 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	if (count == 1)
 	{
 		i = flag;
-		flag = 1;
-		check = 1;
-		check1 = 1;
-		z = 1;
-		k = 1;
+		reset_flags(&check, &check1, &flag, &z, &k);
 	}
 	return (i);
 }
