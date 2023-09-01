@@ -1,5 +1,14 @@
 # include "binary_trees.h"
-
+/**
+ * reset_flags - reset all static variable in
+ * binary_tree_is_complete()
+ *
+ * @flag: input
+ * @check: input
+ * @check1: input
+ * @z: input
+ * @k: input
+ */
 void reset_flags(int *check, int *check1, int *flag, int *z, int *k)
 {
 	*flag = 1;
@@ -8,7 +17,6 @@ void reset_flags(int *check, int *check1, int *flag, int *z, int *k)
 	*z = 1;
 	*k = 1;
 }
-
 /**
  * sides_check - check node children both sides
  * @tree: the node to check
@@ -16,13 +24,13 @@ void reset_flags(int *check, int *check1, int *flag, int *z, int *k)
  */
 int sides_check(const binary_tree_t *tree)
 {
-        int j = 0;
+	int j = 0;
 
-        if (tree->left != NULL)
-             j += 1;
-        if (tree->right != NULL)
-             j += 2;
-        return (j);
+	if (tree->left != NULL)
+		j += 1;
+	if (tree->right != NULL)
+		j += 2;
+	return (j);
 }
 /**
  * binary_tree_is_complete - a function that checks
@@ -37,65 +45,56 @@ int sides_check(const binary_tree_t *tree)
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-        static int count = 1, check = 1, check1 = 1, flag = 1, z = 1, k = 1;
-        int j = 0, i = 1;
+	static int count = 1, check = 1, check1 = 1, flag = 1, z = 1, k = 1;
+	int j = 0, i = 1;
 
-        if (tree == NULL)
-             return (0);
-        j = sides_check(tree);
-        if ((check1 == 0 && count <= k - 2 && j != 3) ||
-                ((check == 0 && count >= z && j != 0) || (j == 2)) ||
-                (check1 == 0 && check == 0 && k != z + 1) ||
-                (check1 == 0 && count > k))
-             flag = 0;
-        if (flag == 0 && count == 1)
-        {
+	if (tree == NULL)
+		return (0);
+	j = sides_check(tree);
+	if ((check1 == 0 && count <= k - 2 && j != 3) ||
+			((check == 0 && count >= z && j != 0) || (j == 2)) ||
+			(check1 == 0 && check == 0 && k != z + 1) ||
+			(check1 == 0 && count > k))
+		flag = 0;
+	if (flag == 0 && count == 1)
+	{
 		reset_flags(&check, &check1, &flag, &z, &k);
-             /*flag = 1;
-             check = 1;
-             check1 = 1;
-             z = 1;
-             k = 1;*/
-             return (0);
-        }
-        if (flag == 0)
-             return (0);
-        if (j == 1 && check == 1)
-        {
-             check = 0;
-             z = count;
-        }
-        if (j == 0 && check1 == 1)
-        {
-             k = count;
-             check1 = 0;
-        }
-        if (tree->left != NULL)
-        {
-             count++;
-             binary_tree_is_complete(tree->left);
-             count--;
-        }
-        if (tree->right != NULL)
-        {
-             count++;
-             binary_tree_is_complete(tree->right);
-             count--;
-        }
-        if (count == 1)
-        {
-             i = flag;
-             /*flag = 1;
-             check = 1;
-             check1 = 1;
-             z = 1;
-             k = 1;*/
-	     reset_flags(&check, &check1, &flag, &z, &k);
-        }
-        return (i);
+		return (0);
+	}
+	if (flag == 0)
+		return (0);
+	if (j == 1 && check == 1)
+	{
+		check = 0;
+		z = count;
+	}
+	if (j == 0 && check1 == 1)
+	{
+		k = count;
+		check1 = 0;
+	}
+	if (tree->left != NULL)
+	{
+		count++;
+		binary_tree_is_complete(tree->left);
+		count--;
+	}
+	if (tree->right != NULL)
+	{
+		count++;
+		binary_tree_is_complete(tree->right);
+		count--;
+	}
+	if (count == 1)
+	{
+		i = flag;
+		reset_flags(&check, &check1, &flag, &z, &k);
+	}
+	return (i);
 }
+
 /**
- * is_max_helper - function that checks if every 
+ * is_max_helper - function that checks if every
  * node is max to all its childen
  *
  * @tree: is a pointer to the root node of the tree to check
@@ -120,19 +119,19 @@ int is_max_helper(const binary_tree_t *tree)
 	}
 	if (is_max == 0)
 		return (0);
-	
-	if (tree->left)	
+
+	if (tree->left)
 	{
 		cnt++;
 		is_max_helper(tree->left);
 		cnt--;
 	}
 	if (tree->right)
-        {
-                cnt++;
-                is_max_helper(tree->right);
-                cnt--;
-        }
+	{
+		cnt++;
+		is_max_helper(tree->right);
+		cnt--;
+	}
 	if (cnt == 1)
 	{
 		z = is_max;
@@ -142,11 +141,11 @@ int is_max_helper(const binary_tree_t *tree)
 
 }
 /**
- * binary_tree_is_heap - function that checks if a binary tree 
+ * binary_tree_is_heap - function that checks if a binary tree
  * is a valid Max Binary Heap
- * 
+ *
  * @tree: is a pointer to the root node of the tree to check
- * 
+ *
  * Return: 1 if tree is a valid Max Binary Heap, and 0 otherwise
  * If tree is NULL, return 0
  */
@@ -154,9 +153,9 @@ int binary_tree_is_heap(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (0);
-	
+
 	if (is_max_helper(tree) == 0)
 		return (0);
-	
+
 	return (binary_tree_is_complete(tree));
 }
