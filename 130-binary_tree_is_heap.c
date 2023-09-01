@@ -22,7 +22,7 @@ void reset_flags(int *check, int *check1, int *flag, int *z, int *k)
  * @tree: the node to check
  * Return: int
  */
-int sides_check(const binary_tree_t *tree)
+int sides_check(const binary_tree_t *tree, int *count, int *check, int *check1, int *flag, int *z, int *k)
 {
 	int j = 0;
 
@@ -30,6 +30,12 @@ int sides_check(const binary_tree_t *tree)
 		j += 1;
 	if (tree->right != NULL)
 		j += 2;
+
+	 if ((*check1 == 0 && *count <= *k - 2 && j != 3) ||
+                        ((*check == 0 && *count >= *z && j != 0) || (j == 2)) ||
+                        (*check1 == 0 && *check == 0 && *k != *z + 1) ||
+                        (*check1 == 0 && *count > *k))
+                *flag = 0;
 	return (j);
 }
 /**
@@ -50,12 +56,12 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	if (tree == NULL)
 		return (0);
-	j = sides_check(tree);
-	if ((check1 == 0 && count <= k - 2 && j != 3) ||
+	j = sides_check(tree,&count, &check, &check1, &flag, &z, &k);
+	/*if ((check1 == 0 && count <= k - 2 && j != 3) ||
 			((check == 0 && count >= z && j != 0) || (j == 2)) ||
 			(check1 == 0 && check == 0 && k != z + 1) ||
 			(check1 == 0 && count > k))
-		flag = 0;
+		flag = 0;*/
 	if (flag == 0 && count == 1)
 	{
 		reset_flags(&check, &check1, &flag, &z, &k);
