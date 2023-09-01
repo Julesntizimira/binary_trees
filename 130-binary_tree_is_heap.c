@@ -1,4 +1,14 @@
 # include "binary_trees.h"
+
+void reset_flags(int *check, int *check1, int *flag, int *z, int *k)
+{
+	*flag = 1;
+	*check = 1;
+	*check1 = 1;
+	*z = 1;
+	*k = 1;
+}
+
 /**
  * sides_check - check node children both sides
  * @tree: the node to check
@@ -40,11 +50,12 @@ int binary_tree_is_complete(const binary_tree_t *tree)
              flag = 0;
         if (flag == 0 && count == 1)
         {
-             flag = 1;
+		reset_flags(&check, &check1, &flag, &z, &k);
+             /*flag = 1;
              check = 1;
              check1 = 1;
              z = 1;
-             k = 1;
+             k = 1;*/
              return (0);
         }
         if (flag == 0)
@@ -74,14 +85,23 @@ int binary_tree_is_complete(const binary_tree_t *tree)
         if (count == 1)
         {
              i = flag;
-             flag = 1;
+             /*flag = 1;
              check = 1;
              check1 = 1;
              z = 1;
-             k = 1;
+             k = 1;*/
+	     reset_flags(&check, &check1, &flag, &z, &k);
         }
         return (i);
 }
+/**
+ * is_max_helper - function that checks if every 
+ * node is max to all its childen
+ *
+ * @tree: is a pointer to the root node of the tree to check
+ *
+ * Return: 1 on success or 0 otherwise
+ */
 int is_max_helper(const binary_tree_t *tree)
 {
 	static size_t is_max = 1, cnt = 1;
@@ -121,6 +141,15 @@ int is_max_helper(const binary_tree_t *tree)
 	return (z);
 
 }
+/**
+ * binary_tree_is_heap - function that checks if a binary tree 
+ * is a valid Max Binary Heap
+ * 
+ * @tree: is a pointer to the root node of the tree to check
+ * 
+ * Return: 1 if tree is a valid Max Binary Heap, and 0 otherwise
+ * If tree is NULL, return 0
+ */
 int binary_tree_is_heap(const binary_tree_t *tree)
 {
 	if (tree == NULL)
